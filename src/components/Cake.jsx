@@ -113,18 +113,6 @@ function Cake() {
                 </textPath>
               </text>
             </svg>
-            {canProceed && (
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNavigateToPresent();
-                }}
-                className="absolute top-[30rem] xs:top-[36rem] s:top-[40rem] left-1/2 transform -translate-x-1/2 px-7 py-3 text-white rounded-full font-medium text-base text-center transition-all hover:opacity-80"
-                style={{ backgroundColor: '#813925' }}
-              >
-                Next Page
-              </button>
-            )}
           </motion.div>
         )}
         <div className="relative z-10">
@@ -159,6 +147,27 @@ function Cake() {
           <CakeSVG />
         </div>
       </div>
+
+      {/* Click Text - Centered horizontally */}
+      {candlesBlownOut && canProceed && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          onClick={handleNavigateToPresent}
+          className="fixed left-1/2 -translate-x-1/2 cursor-pointer"
+          style={{ 
+            bottom: '48px',
+            color: 'white',
+            fontSize: '18px',
+            fontWeight: '600',
+            zIndex: 1000,
+            textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+          }}
+        >
+          Click to continue →
+        </motion.div>
+      )}
     </>
   );
 }

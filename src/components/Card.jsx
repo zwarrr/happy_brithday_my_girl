@@ -28,8 +28,8 @@ function Card() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center overflow-clip px-4">
-    <div className="w-full max-w-[400px] h-screen flex flex-col items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center overflow-clip">
+    <div className="w-[400px]  h-screen flex flex-col items-center justify-center">
       <motion.div  initial={{ opacity: 0, visibility: "hidden" }}
           animate={{ opacity: 1, visibility: "visible" }}
           transition={{duration: 1.2}}>
@@ -66,12 +66,12 @@ function Card() {
 
     {/* prone to bugs */}
       {isCardOpened && (
-        <motion.div className="mt-4" initial={{ opacity: 0, visibility: "hidden" }}
+        <motion.div className="-mt-[0.5rem]" initial={{ opacity: 0, visibility: "hidden" }}
         animate={{ opacity: 1, visibility: "visible" }}
         transition={{duration: 1.2}}> 
         <Link to ='/cake'>
         <p 
-          className="px-7 py-3 text-white font-medium text-base rounded-full hover:opacity-80 text-center"
+          className="-mt-[-3rem] px-7 py-3 text-white font-medium text-base rounded-full hover:opacity-80"
           style={{ backgroundColor: '#813925' }}
         >
             Next Page

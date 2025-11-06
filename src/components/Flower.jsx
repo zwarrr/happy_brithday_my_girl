@@ -354,39 +354,26 @@ const FlowerAnimation = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 5
+        zIndex: 300
       }}>
-        {/* Button muncul setelah 5 detik */}
+        {/* Teks muncul setelah 5 detik */}
         {showButton && (
-          <button 
-            onClick={() => navigate('/present')}
+          <div
+            onClick={() => navigate(-1)}
             style={{
-              padding: '15px 40px',
-              fontSize: '18px',
-              backgroundColor: '#813925',
               color: 'white',
-              border: 'none',
-              borderRadius: '25px',
+              fontSize: '20px',
               cursor: 'pointer',
-              fontFamily: "'Courier New', Courier, monospace",
-              boxShadow: '0 4px 20px rgba(129, 57, 37, 0.6)',
-              transition: 'all 0.3s ease',
+              fontWeight: '600',
+              textShadow: '0 2px 8px rgba(0,0,0,0.5)',
               animation: 'fadeInButton 0.5s ease-in',
-              fontWeight: 'bold'
-            }}
-            onMouseOver={(e) => {
-              e.target.style.backgroundColor = '#a0442e';
-              e.target.style.transform = 'scale(1.1)';
-              e.target.style.boxShadow = '0 6px 25px rgba(129, 57, 37, 0.8)';
-            }}
-            onMouseOut={(e) => {
-              e.target.style.backgroundColor = '#813925';
-              e.target.style.transform = 'scale(1)';
-              e.target.style.boxShadow = '0 4px 20px rgba(129, 57, 37, 0.6)';
+              zIndex: 301,
+              padding: '15px 30px',
+              userSelect: 'none'
             }}
           >
-            Back to Gifts
-          </button>
+            Click to go back ←
+          </div>
         )}
       </div>
 

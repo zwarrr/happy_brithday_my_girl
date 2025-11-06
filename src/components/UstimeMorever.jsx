@@ -95,17 +95,17 @@ const UstimeMorever = () => {
       alignItems: 'center',
       justifyContent: 'center',
       overflow: 'hidden',
-      padding: '0',
-      background: `url('./assets/bg.png') no-repeat center center fixed`,
+      padding: '20px 0',
+      background: 'linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%)',
     }}>
-      {/* Video Container - Portrait with rounded corners */}
+      {/* Video Container - Portrait 9:16 ratio */}
       <div style={{
-        width: '95%',
+        width: 'min(100vw - 40px, calc((100vh - 120px) * 9 / 16))',
+        height: 'min(100vh - 120px, calc((100vw - 40px) * 16 / 9))',
         maxWidth: '450px',
-        height: '85vh',
         position: 'relative',
         backgroundColor: '#000',
-        borderRadius: '30px',
+        borderRadius: '20px',
         overflow: 'hidden',
         boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
       }}>
@@ -126,13 +126,13 @@ const UstimeMorever = () => {
           {/* Video Counter */}
           <div style={{
             position: 'absolute',
-            top: '20px',
-            right: '20px',
+            top: '15px',
+            right: '15px',
             backgroundColor: 'rgba(0, 0, 0, 0.7)',
             color: 'white',
-            padding: '6px 14px',
+            padding: '5px 12px',
             borderRadius: '15px',
-            fontSize: '0.85rem',
+            fontSize: '0.8rem',
             fontFamily: "'Courier New', Courier, monospace",
             zIndex: 20,
             fontWeight: 'bold'
@@ -145,9 +145,9 @@ const UstimeMorever = () => {
         <button
           onClick={() => navigate('/present')}
           style={{
-            marginTop: '20px',
-            padding: '14px 40px',
-            fontSize: '1rem',
+            marginTop: '15px',
+            padding: '12px 35px',
+            fontSize: '0.95rem',
             backgroundColor: '#813925',
             color: 'white',
             border: 'none',
