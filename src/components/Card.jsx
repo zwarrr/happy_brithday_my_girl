@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import "../assets/css/card.css";
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 function Card() {
   const [cardClass, setCardClass] = useState("");
@@ -28,32 +28,36 @@ function Card() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center overflow-clip">
-    <div className="w-[400px]  h-screen flex flex-col items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center overflow-clip px-4">
+    <div className="w-full max-w-[400px] h-screen flex flex-col items-center justify-center">
       <motion.div  initial={{ opacity: 0, visibility: "hidden" }}
           animate={{ opacity: 1, visibility: "visible" }}
           transition={{duration: 1.2}}>
       <div id="card" className={`${cardClass}`} onClick={toggleCard}>     
         <div id="card-inside">
           <div className="wrap">
-            <p>Happy Birthday, John Doe!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque delectus dolore recusandae eveniet dicta. Corrupti.</p>
+            <h1>Happy Birthday, Alyanissa Vidya Nur Chantika</h1>
+            <h2>hawloo adee cayaa sayanggkuu cintakuu cantikkuu, akuuu aall inii, ciee ciee 18 tahun nii</h2>
             <p>
-              I hope you have a very blessed birthday!
+              I hope that this month, November, the month when you were born and also your birthday month, brings many good things and fortunate miracles to you.
             </p>
             <p>
-             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, cum.
+             semogaa semuanyaa yang adee cita-citakan dimudahkan jalan nyaa, dilancarkan rejekinyaa, dan dibahagiakan selalua. aamiin yaa rabball alaminn.
             </p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              ciee 18 tahun nihh achh, cepet bener yaa adee nii padahal kita beda 5 bulan ini lho ihh🙄
             </p>
-            <p className="signed">Jane Doe</p>
+            <p className="signed">Mochamad Izwar Ali
+              (aall)
+            </p>
           </div>
         </div>
 
         <div id="card-front">
           <div className="wrap">
             <h1>Happy Birthday!</h1>
+            <h2>adee sayanggkuu cintaakuu cantiknyaa akuuu</h2>
+            <h3>"Alyanissa Vidya Nur Chantika"</h3>
           </div>
         </div>
     </div>
@@ -62,11 +66,14 @@ function Card() {
 
     {/* prone to bugs */}
       {isCardOpened && (
-        <motion.div className="-mt-[3rem]" initial={{ opacity: 0, visibility: "hidden" }}
+        <motion.div className="mt-4" initial={{ opacity: 0, visibility: "hidden" }}
         animate={{ opacity: 1, visibility: "visible" }}
         transition={{duration: 1.2}}> 
         <Link to ='/cake'>
-        <p className="-mt-[4rem] px-7 py-3 bg-customBlue text-white font-medium text-base rounded-full hover:bg-blue-600">
+        <p 
+          className="px-7 py-3 text-white font-medium text-base rounded-full hover:opacity-80 text-center"
+          style={{ backgroundColor: '#813925' }}
+        >
             Next Page
           </p>
         </Link>

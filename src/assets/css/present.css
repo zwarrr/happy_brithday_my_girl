@@ -99,6 +99,16 @@ input#click {
   transition: 0.5s;
   color: #333;
   z-index: -1;
+  opacity: 0;
+}
+
+#click:checked + .gift .entry {
+  opacity: 1;
+  z-index: 10;
+}
+
+#click:checked + .gift .entry div {
+  opacity: 1;
 }
 
 .raffle-1 {
@@ -106,15 +116,15 @@ input#click {
 }
 
 #click:checked + .gift .raffle-1 {
-  transform: translateY(-110px) translateX(-160px);
+  transform: translateY(-110px) translateX(-180px);
 }
 
 #click:checked + .gift .raffle-2 {
-  transform: translateY(-200px) translateX(-10px);
+  transform: translateY(-200px) translateX(0px);
 }
 
 #click:checked + .gift .raffle-3 {
-  transform: translateY(-300px) translateX(-150px);
+  transform: translateY(-290px) translateX(-180px);
 }
 
 #click:checked + .gift .entry div {

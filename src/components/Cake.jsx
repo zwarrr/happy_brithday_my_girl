@@ -1,81 +1,88 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../assets/css/cake.css";
 import { CakeSVG, confetti } from "../assets";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import birthdayMusic from "../assets/mp3/soundhbd_trompet.mp3";
+import { stopGlobalAudio } from "../utils/globalAudio";
 
 function Cake() {
-  // You may want to tweak these audio codes more to your liking.
   const [candlesBlownOut, setCandlesBlownOut] = useState(false);
-  const [micPermissionGranted, setMicPermissionGranted] = useState(false);
+  const [canProceed, setCanProceed] = useState(false);
+  const audioRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    let audioContext;
-    let analyser;
-    let dataArray;
-    let blowStartTime = null;
+    // Stop background music from Home immediately
+    stopGlobalAudio()
 
-    async function initBlowDetection() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-        });
-        audioContext = new (window.AudioContext || window.AudioContext)();
-        analyser = audioContext.createAnalyser();
-        const source = audioContext.createMediaStreamSource(stream);
-
-        analyser.fftSize = 512;
-        const bufferLength = analyser.frequencyBinCount;
-        dataArray = new Uint8Array(bufferLength);
-        source.connect(analyser);
-
-        detectBlow();
-      } catch (error) {
-        console.error("Microphone access denied:", error);
-      }
-    }
-
-    function detectBlow() {
-      if (!analyser || !dataArray) return;
-      analyser.getByteFrequencyData(dataArray);
-      const lowFrequencyValues = dataArray.slice(0, 15);
-      const averageLowFrequency =
-        lowFrequencyValues.reduce((sum, value) => sum + value, 0) /
-        lowFrequencyValues.length;
-
-      const blowThreshold = 100; // Moderate threshold
-      const requiredDuration = 1500; // 1. 5 sec blow required
-
-      if (averageLowFrequency > blowThreshold) {
-        if (!blowStartTime) {
-          blowStartTime = performance.now();
-        } else if (performance.now() - blowStartTime > requiredDuration) {
-          setCandlesBlownOut(true);
-        }
-      } else {
-        if (blowStartTime && performance.now() - blowStartTime > 200) {
-          blowStartTime = null;
+    // Play music on first user interaction
+    const playMusicOnInteraction = async () => {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        try {
+          await audioRef.current.play();
+        } catch (error) {
+          console.error("Error playing audio:", error);
         }
       }
+    };
 
-      requestAnimationFrame(detectBlow);
-    }
+    // Add event listener for user interaction
+    const handleClick = () => playMusicOnInteraction();
+    const handleTouch = () => playMusicOnInteraction();
 
-    setTimeout(() => {
-      initBlowDetection();
-      setMicPermissionGranted(true);
-    }, 10000); //permission delay
+    document.addEventListener('click', handleClick, { once: true });
+    document.addEventListener('touchstart', handleTouch, { once: true });
 
     return () => {
-      if (audioContext) {
-        audioContext.close();
+      document.removeEventListener('click', handleClick);
+      document.removeEventListener('touchstart', handleTouch);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
       }
     };
   }, []);
 
+  const handleCakeClick = () => {
+    // Only allow blowing candles after music completes 1 loop
+    if (canProceed) {
+      setCandlesBlownOut(!candlesBlownOut);
+    }
+  };
+
+  const handleMusicEnd = () => {
+    // After first loop completes, allow user to proceed
+    setCanProceed(true);
+    
+    // Loop the music infinitely
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((error) => {
+        console.error("Error replaying audio:", error);
+      });
+    }
+  };
+
+  const handleNavigateToPresent = () => {
+    if (canProceed) {
+      navigate('/present');
+    }
+  };
+
   return (
     <>
-      <div className="bg-black/80 h-screen w-screen flex items-center justify-center overflow-hidden relative">
+      <audio 
+        ref={audioRef} 
+        src={birthdayMusic} 
+        onEnded={handleMusicEnd}
+        className="hidden"
+      />
+      <div 
+        className="bg-black/80 h-screen w-screen flex items-center justify-center overflow-hidden relative cursor-pointer"
+        onClick={handleCakeClick}
+      >
         {candlesBlownOut && (
           <div
             className="absolute inset-0 bg-cover bg-center z-50"
@@ -106,11 +113,18 @@ function Cake() {
                 </textPath>
               </text>
             </svg>
-            <Link to="/present" className="flex justify-center items-center">
-              <p className="absolute top-[30rem] xs:top-[36rem] s:top-[40rem] px-7 py-3 bg-customBlue text-white rounded-full hover:bg-blue-600 font-medium text-base text-center ">
+            {canProceed && (
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNavigateToPresent();
+                }}
+                className="absolute top-[30rem] xs:top-[36rem] s:top-[40rem] left-1/2 transform -translate-x-1/2 px-7 py-3 text-white rounded-full font-medium text-base text-center transition-all hover:opacity-80"
+                style={{ backgroundColor: '#813925' }}
+              >
                 Next Page
-              </p>
-            </Link>
+              </button>
+            )}
           </motion.div>
         )}
         <div className="relative z-10">
@@ -124,22 +138,11 @@ function Cake() {
                       transition={{
                         duration: 2,
                         repeat: Infinity,
-                        delay: 8,
+                        delay: 0.5,
                       }}
                       className="block -translate-x-[60px] translate-y-[105px] -rotate-[30deg] text-gray-200 text-xl "
                     >
-                      blow
-                    </motion.div>
-                    <motion.div
-                      animate={{ opacity: [0, 0.25, 0] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: 9,
-                      }}
-                      className="block translate-x-10 translate-y-[80px] rotate-[30deg] text-gray-200 text-xl"
-                    >
-                      blow
+                      🖱️ Click
                     </motion.div>
                   </div>
                   <div>

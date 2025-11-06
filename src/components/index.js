@@ -4,6 +4,8 @@ import Card from "./Card";
 import SectionWrapper from "./SectionWrapper";
 import Cake from "./Cake";
 import Present from "./Present";
+import Album from "./Album";
+import Flower from "./Flower";
 
 
 export {
@@ -12,5 +14,7 @@ export {
     Card,
     SectionWrapper,
     Cake,
-    Present
+    Present,
+    Album,
+    Flower
 }
