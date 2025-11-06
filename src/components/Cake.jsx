@@ -157,12 +157,14 @@ function Cake() {
           onClick={handleNavigateToPresent}
           className="fixed left-1/2 -translate-x-1/2 cursor-pointer"
           style={{ 
-            bottom: '48px',
+            bottom: 'clamp(24px, 5vh, 48px)',
             color: 'white',
-            fontSize: '18px',
+            fontSize: 'clamp(16px, 4vw, 20px)',
             fontWeight: '600',
             zIndex: 1000,
-            textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+            textShadow: '0 3px 10px rgba(0,0,0,0.9)',
+            whiteSpace: 'nowrap',
+            userSelect: 'none'
           }}
         >
           Click to continue →

@@ -362,13 +362,13 @@ const FlowerAnimation = () => {
             onClick={() => navigate(-1)}
             style={{
               color: 'white',
-              fontSize: '20px',
+              fontSize: 'clamp(16px, 4vw, 20px)',
               cursor: 'pointer',
               fontWeight: '600',
-              textShadow: '0 2px 8px rgba(0,0,0,0.5)',
+              textShadow: '0 3px 10px rgba(0,0,0,0.9)',
               animation: 'fadeInButton 0.5s ease-in',
               zIndex: 301,
-              padding: '15px 30px',
+              whiteSpace: 'nowrap',
               userSelect: 'none'
             }}
           >

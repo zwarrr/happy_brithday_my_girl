@@ -23,6 +23,15 @@ function Present() {
       audio.loop = true
       audio.volume = 0.5
       setGlobalAudio(audio)
+    } else {
+      // Audio exists, make sure it's playing and volume is correct
+      if (audio.paused) {
+        audio.play().catch(e => console.log("Resume play error:", e))
+      }
+      // Ensure volume is at 50% when returning to this page
+      if (audio.volume < 0.5) {
+        audio.volume = 0.5
+      }
     }
   }, [])
 

@@ -29,7 +29,7 @@ function Card() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center overflow-clip">
-    <div className="w-[400px]  h-screen flex flex-col items-center justify-center">
+    <div className="w-[400px] h-screen flex flex-col items-center justify-center relative">
       <motion.div  initial={{ opacity: 0, visibility: "hidden" }}
           animate={{ opacity: 1, visibility: "visible" }}
           transition={{duration: 1.2}}>
@@ -47,9 +47,6 @@ function Card() {
             <p>
               ciee 18 tahun nihh achh, cepet bener yaa adee nii padahal kita beda 5 bulan ini lho ihh🙄
             </p>
-            <p className="signed">Mochamad Izwar Ali
-              (aall)
-            </p>
           </div>
         </div>
 
@@ -63,6 +60,18 @@ function Card() {
     </div>
 
       </motion.div>
+
+      {/* Signed text - right below card */}
+      {isCardOpened && cardClass === "open-fully" && (
+        <motion.p 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="signed"
+        >
+          Mochamad Izwar Ali<br/>(aall)
+        </motion.p>
+      )}
 
     {/* prone to bugs */}
       {isCardOpened && (

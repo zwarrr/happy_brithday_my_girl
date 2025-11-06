@@ -52,12 +52,29 @@ const UstimeMorever = () => {
 
   // Fade down volume when component mounts (video starts)
   useEffect(() => {
+    const audio = getGlobalAudio();
+    
+    // Store original volume and playing state
+    const originalVolume = audio ? audio.volume : 0.5;
+    const wasPlaying = audio ? !audio.paused : false;
+    
     fadeVolume(0, 1500); // Fade to 0% volume (mute) over 1.5 seconds
 
     return () => {
-      // Cleanup if needed
+      // When leaving this page, restore audio
+      const audio = getGlobalAudio();
+      if (audio) {
+        // If not all videos watched, restore to original volume
+        if (!allVideosWatched) {
+          fadeVolume(0.5, 1000); // Fade back to 50% over 1 second
+        }
+        // Make sure audio continues playing
+        if (wasPlaying && audio.paused) {
+          audio.play().catch(e => console.log("Resume play error:", e));
+        }
+      }
     };
-  }, []);
+  }, [allVideosWatched]);
 
   // Fade up volume when all videos are watched
   useEffect(() => {
